@@ -1,6 +1,6 @@
 class Guest < ActiveRecord::Base
-  nullify :salutation, :first_name, :suffix, :additional_names, :email
-  nullify :address, :gift, :rsvp
+  nilify_blanks :only => [:salutation, :first_name, :suffix, :additional_names, :email]
+  nilify_blanks :only => [:address, :gift, :rsvp]
   
   with_options :dependent => :destroy do |g|
     g.has_one :address
@@ -22,8 +22,8 @@ class Guest < ActiveRecord::Base
   
   before_create :generate_pin
 
-  named_scope :admin, :conditions => { :admin => true }
-  named_scope :non_admin, :conditions => { :admin => false }
+  scope :admin, :conditions => { :admin => true }
+  scope :non_admin, :conditions => { :admin => false }
 
   # for all def self.whatever methods
   class << self

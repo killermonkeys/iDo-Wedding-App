@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
-  # Scrub sensitive parameters from your log
-  filter_parameter_logging :first_name, :last_name, :name, :email, :pin, :line_1, :line_2, :city, :state, :zip
   
   helper_method :session_guest, :admin_user
   

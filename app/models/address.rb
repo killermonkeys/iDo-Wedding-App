@@ -1,9 +1,9 @@
 class Address < ActiveRecord::Base
-  nullify :line_2, :state, :province
+  nilify_blanks :only => [:line_2, :state, :province]
   
   belongs_to :guest
   
-  COUNTRY_OPTIONS = ['United States', 'Canada', 'Italy']
+  COUNTRY_OPTIONS = ['United States', 'Canada']
   
   # Validating the address form fields aren't empty.
   validates_presence_of :line_1, :city
@@ -24,14 +24,6 @@ class Address < ActiveRecord::Base
   validates_inclusion_of :province, :in => CanadianProvinces::MAP.values, :if => lambda{|a| a.country == 'Canada'}
   validates_format_of :zip, :with => /^[A-Z0-9]{3} [A-Z0-9]{3}$/, :if => lambda{|a| a.country == 'Canada'}
   
-  # Italian Address:
-  # Mario Rossi
-  # Via Rio 7                   # 7 is the address number
-  # 30030 Martellago (VE)       # (VE) is the province abbreviation
-  # Italy
-  validates_inclusion_of :province, :in => ItalianProvinces::MAP.values, :if => lambda{|a| a.country == 'Italy'}
-  validates_format_of :zip, :with => /^\d{5}$/, :if => lambda{|a| a.country == 'Italy'}
-  
   def lines(include_names = false)
     [(guest.try(:full_name) if include_names), line_1, line_2] + [*city_line]
   end
@@ -42,8 +34,6 @@ class Address < ActiveRecord::Base
       "#{city}, #{state} #{zip}"
     when 'Canada'
       ["#{city}, #{province} #{zip}", 'Canada']
-    when 'Italy'
-      ["#{city}, #{province} #{zip}", 'Italy']
     end
   end
   

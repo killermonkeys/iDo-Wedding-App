@@ -1,6 +1,22 @@
 require 'test_helper'
 
-class GuestsControllerTest < ActionController::TestCase
+class AdminGuestsControllerTest < ActionController::TestCase
+  test "should create guest" do
+    assert_difference('Guest.count') do
+      post :create, :guest => { }
+    end
+
+    assert_redirected_to guest_path(assigns(:guest))
+  end
+
+  test "should destroy guest" do
+    assert_difference('Guest.count', -1) do
+      delete :destroy, :id => guests(:one).to_param
+    end
+
+    assert_redirected_to guests_path
+  end
+
   test "should get index" do
     get :index
     assert_response :success

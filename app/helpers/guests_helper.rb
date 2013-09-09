@@ -9,15 +9,15 @@ module GuestsHelper
   		  if guest.has_rsvped?
 		      html << 'Thank you for your RSVP. '
           if @session_guest.is_attending?
-            html << 'We’re looking forward to seeing you at the wedding! '
+            html << 'We\'re looking forward to seeing you at the wedding! '
             html << 'If you need to change any details, you can always log back in here and make those changes.'
           else
-            html << 'We’re sorry we won’t see you at the wedding. '
+            html << 'We\'re sorry we won\'t see you at the wedding. '
             html << 'If your situation changes, and you can come, feel free to log back in here and change your RSVP.'
   			  end
     		else
           html << 'Please confirm that all the information below is correct. '
-          html << 'If not, go ahead and click on the “Update My Info” button below.'
+          html << 'If not, go ahead and click on the \"Update My Info\" button below.'
     		end
     	end),
     	html_options
@@ -34,7 +34,7 @@ module GuestsHelper
         if guest.email?
           if @admin_user
             html << 'Send an email to: '
-            html << mail_to(guest.email, guest.safe_email, :encode => :hex, :subject => 'AdamGotDiana.Com - Diana and Adam’s Wedding Site')
+            html << mail_to(guest.email, guest.safe_email, :encode => :hex, :subject => 'AdamGotDiana.Com - Diana and Adam\'s Wedding Site')
           else
             html << guest.safe_email
             html << " (#{link_to 'change it', edit_guest_path(:anchor => 'email')})"
