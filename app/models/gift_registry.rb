@@ -1,7 +1,7 @@
 class GiftRegistry < Struct.new(:name, :slug, :image_path, :url)
   
   REGISTRIES = [
-    ['Macy’s',              'macys',                'img-registry-logo-macys.png',
+    ['Macys',              'macys',                'img-registry-logo-macys.png',
       'http://registry.weddingchannel.com/gvr/guestregistrydetail.action?retailer_registry_uid=310485632&listby=dept', ],
     ['Crate & Barrel',      'crate-and-barrel',     'img-registry-logo-Crate&Barrel.png',
       'http://www.crateandbarrel.com/Gift-Registry/Guest/ViewRegistry.aspx?grid=4291770'],

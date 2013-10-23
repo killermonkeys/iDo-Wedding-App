@@ -17,6 +17,7 @@ class Guest < ActiveRecord::Base
   
   # Validating the guest form fields aren't empty.
   validates_presence_of :last_name
+  # validates_presence_of :email
   # validates_presence_of :email, :unless => lambda {|guest| guest.admin?}
   validates_associated :address, :rsvp
   
@@ -43,6 +44,10 @@ class Guest < ActiveRecord::Base
     [first_name, last_name].compact.join(' ')
   end
 
+  def g2_name
+    [g2_first_name, g2_last_name].compact.join(' ')
+  end
+
   def name=(names)
     first_name, last_name = names.split(' ', 2)
     if last_name.blank?
@@ -51,11 +56,32 @@ class Guest < ActiveRecord::Base
       self[:first_name], self[:last_name] = first_name, last_name
     end
   end
+
+  def g2_full_name()
+    if g2_name.blank?
+      return 'their Guest'
+    else
+      guest_full_name = [g2_salutation, g2_name, g2_suffix].compact.join(' ').strip
+      return guest_full_name
+    end
+  end
   
   def full_name(guest_only = false)
     guest_full_name = [salutation, name, suffix].compact.join(' ').strip
     return guest_full_name if guest_only
-    [guest_full_name, additional_names].compact.to_sentence(:two_words_connector => ' & ')
+    if has_second_guest?
+      return [guest_full_name, g2_full_name].compact.to_sentence(:two_words_connector => ' & ')
+    else
+      return guest_full_name
+    end
+  end
+
+  def g1_full_name()
+    if name.blank?
+      return 'Unnamed Guest'
+    else
+      return full_name(guest_only=true)
+    end
   end
   
   def safe_email
@@ -66,9 +92,13 @@ class Guest < ActiveRecord::Base
   def has_rsvped?
     rsvp.present? && !rsvp.attending.nil?
   end
+
+  def has_rsvp?
+    rsvp.present?
+  end
   
   def is_attending?
-    has_rsvped? && rsvp.attending?
+    has_rsvped? && (rsvp.attending? || rsvp.second_attending?)
   end
   
   def has_address?
@@ -85,7 +115,7 @@ class Guest < ActiveRecord::Base
   def generate_pin
     return if read_attribute(:pin) =~ /^\d{4}$/  # don't do anything if this record already has a 4-digit PIN
     begin
-      pin_value = Array.new(4) { (0..9).to_a.rand }.join  # create a random 4-digit number
+      pin_value = Array.new(4) { Random.rand(0..9) }.join  # create a random 4-digit number
     end while self.class.pin_exists?(pin_value)
     write_attribute(:pin, pin_value)
   end

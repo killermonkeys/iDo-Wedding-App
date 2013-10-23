@@ -1,0 +1,9 @@
+<h1>Add a Guest</h1>
+
+<div class="comment-form">
+    <%= form_for [:admin, @guest] do |form| %>
+    	<%= render :partial => "/guests/form", :locals=>{:form=>form} %>
+    	<p><%= form.submit 'Create' %></p>
+    <% end %>
+</div>
+<%= link_to 'Back', guest_path %>

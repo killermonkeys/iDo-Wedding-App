@@ -1,0 +1,54 @@
+::-moz-selection { 
+    background: #94C8A3;}
+::selection {
+    background: #94C8A3;}
+
+h1 span, h2 span, h3 span ,h4 span, h5 span, h6 span,
+a:hover, a:focus,
+.sub_title,
+.entry a:hover,
+.entry .link-more {
+    color:#94C8A3}
+
+input[type="reset"],
+input[type="submit"],
+input[type="button"], 
+button,
+.button_link,
+.btn-submit, input.btn-submit,
+.comment-form .btn-submit {
+    text-shadow:0 1px 1px #b56148;
+    border:1px solid #c0725b;}
+
+
+a, a:visited,
+.dropdown li:hover a,
+.dropdown .current-menu-item a,
+.dropdown .current-menu-ancestor a,
+.dropdown li ul li:hover a,
+.dropdown li:hover li ul li:hover a,
+.dropdown .current-menu-ancestor .current-menu-item a,
+.dropdown .current-menu-ancestor .current-menu-ancestor a,
+.dropdown .current-menu-ancestor .current-menu-ancestor .current-menu-item a,
+.bot_box a,
+.entry a,
+.post-title h2 a:hover,
+.post-title h1 a:hover,
+.post-author .author,
+.comment-author,
+.comment-date {
+    color:#49cda7;} 
+
+.link-reply {
+    color:#94C8A3;}
+
+
+.cusel .cuselActive {
+    color: #94C8A3 !important;}
+
+/* For iPads */
+@media only screen and (device-width: 768px) {
+    body {
+        background-color: #c1c3ab !important;
+        background-repeat:repeat !important}
+}

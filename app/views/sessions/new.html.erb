@@ -1,37 +1,40 @@
 <div id="main">
-	<h2>Hello</h2>
-	<p>Diana and I would like to welcome you to the RSVP section of AdamGotDiana.Com, or Our Wedding site.</p>
-	<p>We appreciate you coming all the way down here to the site. We know we didn't give you the exact time, nor the location of our wedding in the invitation. Rest assured, as soon as you complete the RSVP process, you will be provided with these, and other details of the wedding.</p>
-	<p>Even though the wedding invites just got out, if you could RSVP by August 31st, 2009, we would greatly appreciate it. Our caterer needs an accurate head count by then, you know how this all goes...</p>
-	
-	<h2>Step 1 - The RSVP Card:</h2>
-	<p>So, let's get started. First, <span class="emphasis">grab the RSVP card</span> that came in your invitation, it will look something like this:</p>
-	<p class="center"><%= image_tag("img-rsvp-rsvpCardSample.jpg") %></p>
-	
-	<h2>Step 2 - The PIN Number:</h2>
-	<p>As you can see there is a <span class="emphasis">handwritten, four-digit number within the box in the middle.</span> That's your personal <span class="emphasis">PIN</span> number. It makes sure that you, and only you, can see and change the details of your RSVP.</p>
-	<p>Type that four-digit PIN number into the box below labeled "PIN":</p>
+	<div class="entry">
 
-	<%- form_for @guest, :url => login_path do |f| -%>
-		<%= content_tag :p, flash[:error], :style => 'color: red;' if flash[:error] %>
+		<h1>RSVP to the UK Wedding</h1>
+		<p>Thanks for RSVPing online! We want to keep in touch with everyone regarding the wedding, particularly as we will only have menu choices available nearer to the date and we need to follow up with each guest regarding their menu choice. This is a custom written application so it may have a few bugs. If it does, contact us (using the contact) and we'll take your RSVP by hand and also look at the problem.</p>
+		<h2>Your RSVP Card</h2>
+	<p>Your RSVP card should have two sections: guests' names and a PIN number:</p>
+	<!-- image in frame -->
+    <div class="frame_box frame_big">
+   	  	<%= image_tag("RSVP-card.png") %>
+        <span class="img_tl"></span><span class="img_tr"></span><span class="img_bl"></span><span class="img_br"></span>
+    </div>
+    <!--/ image in frame -->
+	</div>
+
+
 	
-		<p>
-			<%= f.label :pin, 'PIN' %><br />
-			<%= f.text_field :pin, :class => 'text_field_pin', :size => 4 %>
-		</p>
-		
-		<h2>Step 3 - Verification:</h2>
-		<p>Now, for verification, type in the last name of the first individual listed on your invitation. For example, if your invitation was addressed like this:</p>
-		<p><quote>Mr. Adam Farnsworth & Miss Diana Wheeler</quote></p>
-		<p>The last name you'd type below would be "Farnsworth". Oh, and be sure to capitalize the first letter.</p>
-		
-		<p>
-			<%= f.label :last_name, 'Last Name' %><br />
-			<%= f.text_field :last_name, :class => 'text_field_verify', :size => 12 %>
-		</p>
-		
-		<h2>Step 4 - Login:</h2>
-		<p>Now, we need to login. To do so, click the large button below that says, "Click Here to Login".</p>
-		<p><%= f.submit 'Click Here to Login', :class => 'form_submit' %></p>
-	<%- end -%>
+
+
+	<div class="comment-form">
+		<%= form_for @guest, :url => login_path do |f| %>
+			<%= content_tag :p, flash[:error], :style => 'color: red;' if flash[:error] %>
+			<h2>Name</h2>
+			<p>Please enter your surname, as written on the invitation. If the guests named on your invitation have different surnames, use the first surname. For example if the RSVP says: &ldquo;Jack Bucket and Jill Hill&rdquo;, then please use &ldquo;Bucket&rdquo;.</p>
+			<div class="row">
+				<%= f.label :last_name, 'Surname' %>
+				<%= f.text_field :last_name, :class => 'text_field_verify', :size => 12 %>
+			</div>
+			
+			<h2>PIN</h2>
+			<p>Enter the four digit PIN number on the RSVP card.</p>
+			<div class="row">
+				<%= f.label :pin, 'PIN' %>
+				<%= f.text_field :pin, :class => 'text_field_pin', :size => 4 %>
+			</div>
+					
+			<div class="row"><%= f.submit 'Start RSVP', :class => 'btn-submit' %></div>
+		<% end %>
+	</div>
 </div>

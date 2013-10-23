@@ -9,3 +9,9 @@ two:
   first_name: MyString
   last_name: MyString
   email: MyString
+
+admin:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  admin: true

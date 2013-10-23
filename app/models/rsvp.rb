@@ -6,8 +6,6 @@ class Rsvp < ActiveRecord::Base
   # don't allow some Hackety McHacker to raise (or lower) the number of people they can RSVP for
   attr_protected :max_number_attending
   
-  validates_presence_of :number_attending, :if => lambda{|rsvp| rsvp.attending?}
-  validate :validate_number_attending_within_range
   
   with_options :include => :guest, :conditions => { :guests => { :admin => false } } do |scopes|
     scopes.scope :non_admin
@@ -18,25 +16,39 @@ class Rsvp < ActiveRecord::Base
   
   ATTENDING_MAP = [[true, 'yes'], [false, 'no']]
   
-  def attending_response
-    ATTENDING_MAP.assoc(self[:attending]).try(:last) || self[:attending]
-  end
-  
-  def one?
-    number_attending == 1
-  end
-  
-  def two?
-    number_attending == 2
-  end
-  
   def max?
-    number_attending == max_number_attending
+    1 + (rsvp.guest.has_second_guest ? 1 : 0)
   end
-  
+
+  def number_attending?
+    (rsvp.attending ? 1 : 0) + (rsvp.second_attending ? 1 : 0)
+  end
+
+  def one?
+    rsvp.attending ^ rsvp.second_attending
+  end
+
+  def two?
+    rsvp.attending && rsvp.second_attending
+  end
+
+  def g1_full_name()
+    if !guest || !guest.name || guest.name.blank?
+      return 'Unnamed Guest'
+    else
+      return guest.full_name(guest_only=true)
+    end
+  end
+
+  def g2_full_name()
+    if !guest || guest.g2_name.blank?
+      return 'their Guest'
+    else
+      guest_full_name = [guest.g2_salutation, guest.g2_name, guest.g2_suffix].compact.join(' ').strip
+      return guest_full_name
+    end
+  end
+
   private
   
-  def validate_number_attending_within_range
-    errors.add(:number_attending, "must be between 1 and #{max_number_attending}") unless number_attending.nil? || (1..max_number_attending).include?(number_attending)
-  end
 end

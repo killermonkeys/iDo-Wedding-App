@@ -1,46 +1,154 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
 <head>
-	<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-	<title><%= controller.controller_name %>: <%= controller.action_name %></title>
-	<%= stylesheet_link_tag 'base' %>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<title>JANE AND KENNY - <%= controller.controller_name %>: <%= controller.action_name %></title>
+	<link href="http://fonts.googleapis.com/css?family=Josefin+Slab:400,700|PT+Serif+Caption:400,400italic|Tulpen+One" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700 rel="stylesheet">
+    <%= stylesheet_link_tag 'base' %>
+    <%= stylesheet_link_tag 'screen' %>
+    <%= stylesheet_link_tag 'beige-turqoise' %>
 	<%#= stylesheet_link_tag 'print', :media => "print" %>
+
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- favicon.ico and apple-touch-icon.png -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="<%= asset_path 'apple-touch-icon-57x57-iphone.png' %>">
+    <link rel="apple-touch-icon" sizes="72x72" href="<%= asset_path 'apple-touch-icon-72x72-ipad.png' %>">
+    <link rel="apple-touch-icon" sizes="114x114" href="<%= asset_path 'apple-touch-icon-114x114-iphone4.png' %>">
+
+    <!-- main JS libs  -->
+    <%= javascript_include_tag 'modernizr-2.5.3.min' %>
+    <%= javascript_include_tag 'respond.min' %>
+    <%= javascript_include_tag 'jquery.min' %>
+    <%= javascript_include_tag 'jquery.easing.1.3.min' %>
+    <%= javascript_include_tag 'general' %>
+
+
 </head>
 
-<body>
-	<%= content_tag(:div, flash[:notice], :id => 'flash') if flash[:notice] %>
-	
-	<div id="container">
-	  
-		<div id="header">
-			<%- if @session_guest and !@admin_user -%>
-				<div id="logout"><h3><%= link_to 'Logout', logout_path %></h3></div>
-			<%- end -%>
-		</div>
-		
-		<%- if @admin_user -%>
-  		<div id="admin-nav">
-  			<ul>
-  				<li><%= link_to "Manage Guests (#{Guest.non_admin.count})", admin_guests_path %></li>
-  				<li><%= link_to "Manage RSVPs (Y:#{Rsvp.yes.count}, N:#{Rsvp.no.count}, ?:#{Rsvp.undecided.count})", rsvps_path %></li>
-  				<li><%= link_to "Manage Gifts (#{Gift.count})", gifts_path %></li>
-          <!-- <li><%#= link_to 'Manage Thank Yous', thank_yous_path %></li> -->
-  				<li><%= link_to 'Logout', logout_path %></li>
-  			</ul>
-  			<div class="clear"></div>
-  		</div>
-		<%- end -%>
-		
-		<div id="content">
-			<%= yield %>
-			<div class="clear"></div>
-		</div>
-		
-		<div id="footer"><%= image_tag('img-footer-cornerStamp.png') %></div>
-	</div>
-</body>
+<body style="background:url(<%= asset_path 'pattern_purple.png' %>) repeat repeat"> 
+<div class="body_wrap">
 
+<div class="main_outer">   
+    <div class="main_top"></div>
+    <div class="main_mid">
+        
+        <!-- header -->
+        <div class="header">
+        
+            <div class="head_title">
+                <strong>We Are Getting Married (Twice!)</strong>
+                <p class="sub_title">UK: SATURDAY, 15<sup>th</sup> February, 2014</p>
+                <p class="sub_title">US: SATURDAY, 19<sup>th</sup> July, 2014</p>
+            </div>
+            
+            <div class="head_names">
+                <div class="head_name_left">
+                <span class="head_name">
+                    <strong>JANE</strong> <em>BATCHELOR</em>
+                </span>
+                </div>
+                <span class="head_amp"><%= image_tag "head_amp.png" %></span>                
+                <div class="head_name_right">
+                <span class="head_name">
+                    <strong>KENNY</strong> <em>STOLTZ</em>
+                </span>
+                </div>
+                
+                <span class="ribbon_left"></span>
+                <span class="ribbon_right"></span>
+            </div>
+            
+        </div>
+        <!-- header -->
+                
+        <!-- topmenu -->
+        <div class="topmenu_line_top"></div>    
+        <nav id="topmenu">  
+            <ul class="dropdown">   
+                <li class="menu-level-0 current-menu-ancestor"><a href="/index.html"><span>HOME</span></a></li>
+                <li class="menu-level-0"><a href="/our-story.html"><span>OUR STORY</span></a></li>
+                <li class="menu-level-0"><a href="/uk/ceremony.html"><span>UK WEDDING</span></a>
+                    <ul class="submenu-1">                          
+                        <li class="menu-level-1"><a href="/rsvp"><span>RSVP</span></a></li>
+                        <li class="menu-level-1"><a href="/uk/ceremony.html"><span>Ceremony</span></a></li>
+                        <li class="menu-level-1"><a href="/uk/breakfast.html"><span>Wedding Breakfast</span></a></li>
+                        <li class="menu-level-1"><a href="/uk/reception.html"><span>Reception</span></a></li>
+                        <li class="menu-level-1"><a href="/uk/accommodation.html"><span>Accomodation</span></a></li>
+                        <li class="menu-level-1"><a href="/uk/transport.html"><span>Transport and Parking</span></a></li>
+                        <li class="menu-level-1"><a href="/uk/registry.html"><span>Registry</span></a></li>
+                    </ul>
+                </li>
+                <li class="menu-level-0"><a href="#"><span>US WEDDING</span></a>
+                    <ul class="submenu-1">
+                        <li class="menu-level-1"><a href="#">Coming Soon</a></li>                
+                        <!-- <li class="menu-level-1"><a href="us/rsvp.html"><span>RSVP</span></a></li>          
+                        <li class="menu-level-1"><a href="us/ceremony.html"><span>Ceremony</span></a></li>
+                        <li class="menu-level-1"><a href="us/breakfast.html"><span>Wedding Meal</span></a></li>
+                        <li class="menu-level-1"><a href="us/reception.html"><span>Reception</span></a></li>
+                        <li class="menu-level-1"><a href="us/accomodation.html"><span>Accomodation</span></a></li>
+                        <li class="menu-level-1"><a href="us/transport.html"><span>Transport and Parking</span></a></li>
+                        <li class="menu-level-1"><a href="us/registry.html"><span>Registry</span></a></li> -->
+                    </ul>
+                </li>
+                <% if @admin_user %>
+                <li class="menu-level-0"><a href="#"><span>RSVP Admin</span></a>
+                    <ul class="submenu-1">
+                        <li class="menu-level-1"><%= link_to "Manage Guests (#{Guest.non_admin.count})", admin_guests_path %></li>
+                        <li class="menu-level-1"><%= link_to "Manage RSVPs (Y:#{Rsvp.yes.count}, N:#{Rsvp.no.count}, ?:#{Rsvp.undecided.count})", admin_rsvps_path %></li>
+                        <li class="menu-level-1"><%= link_to "Manage Gifts (#{Gift.count})", admin_gifts_path %></li>
+                  <!-- <li><%#= link_to 'Manage Thank Yous', thank_yous_path %></li> -->
+                        <li class="menu-level-1"><%= link_to 'Logout', logout_path %></li>
+                    </ul>
+                </li>
+                <% end %>
+
+                <li class="menu-level-0"><a href="/contact.html"><span>CONTACT</span></a></li>
+
+                        
+            </ul>
+        </nav>
+        <div class="topmenu_line_bot"></div>
+        <!--/ topmenu -->    
+        
+        <!-- content -->
+        <div class="content post-detail">
+        
+            <%= content_tag(:div, flash[:notice], :id => 'flash') if flash[:notice] %>
+
+    		<div id="header">
+    			<% if @session_guest and !@admin_user %>
+    				<%= link_to 'Logout', logout_path, :class => "button_link" %>
+    			<% end %>
+    		</div>
+	
+
+    		
+			<%= yield %>
+    	
+        <!--/ content -->
+        </div>
+        
+    </div>
+    <div class="main_bot"></div>
+</div>
+<!--/ container --> 
+
+<footer>
+    <div class="container">
+        
+    </div>
+</footer>
+
+</div>
+</body>
 </html>

@@ -3,7 +3,7 @@ module AddressesHelper
     content_tag_for(wrapper_tag, address, html_options) do
       address.lines.map do |line|
         content_tag(line_tag, line) unless line.blank?
-      end.compact.join
+      end.compact.join.html_safe
     end
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090811023343) do
+ActiveRecord::Schema.define(:version => 20131021000108) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "guest_id"
@@ -22,16 +22,17 @@ ActiveRecord::Schema.define(:version => 20090811023343) do
     t.string   "zip"
     t.string   "country"
     t.string   "province"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "line_3"
   end
 
   create_table "gifts", :force => true do |t|
     t.integer  "guest_id"
     t.string   "gift"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "guests", :force => true do |t|
@@ -42,9 +43,13 @@ ActiveRecord::Schema.define(:version => 20090811023343) do
     t.string   "email"
     t.string   "pin"
     t.boolean  "admin",            :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "additional_names"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "has_second_guest", :default => false, :null => false
+    t.string   "g2_salutation"
+    t.string   "g2_first_name"
+    t.string   "g2_last_name"
+    t.string   "g2_suffix"
   end
 
   create_table "rsvps", :force => true do |t|
@@ -54,15 +59,16 @@ ActiveRecord::Schema.define(:version => 20090811023343) do
     t.integer  "max_number_attending", :default => 2, :null => false
     t.boolean  "group_rsvp"
     t.boolean  "admin_rsvp"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "second_attending"
   end
 
   create_table "thank_yous", :force => true do |t|
     t.integer  "gift_id"
     t.text     "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

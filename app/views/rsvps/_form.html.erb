@@ -1,8 +1,11 @@
-<p>
-	<%= rsvp.label :attending, 'Will you be attending?' %><br />
+<% guest = @guest || @session_guest %>
+<div class="row"> 
+	<%= rsvp.label :attending, "Will #{ rsvp.object.g1_full_name } be attending?" %>
 	<%= rsvp.select :attending, options_from_collection_for_select(Rsvp::ATTENDING_MAP.map{|r| [r.first, r.last.humanize]}, :first, :last, rsvp.object.attending), :include_blank => true %>
-</p>
-<p>
-	<%= rsvp.label :number_attending, rsvp.object.max_number_attending > 2 ? 'Will there be more attending with you?' : 'Will you be bringing a date?' %><br />
-	<%= rsvp.select :number_attending, number_attending_select_options(rsvp.object) %>
-</p>
+</div>
+<% if guest.has_second_guest %>
+<div class="row"> 
+	<%= rsvp.label :second_attending, "Will #{ rsvp.object.g2_full_name } be attending?" %>
+	<%= rsvp.select :second_attending, options_from_collection_for_select(Rsvp::ATTENDING_MAP.map{|r| [r.first, r.last.humanize]}, :first, :last, rsvp.object.second_attending), :include_blank => true %>
+</div>
+<%end %>
