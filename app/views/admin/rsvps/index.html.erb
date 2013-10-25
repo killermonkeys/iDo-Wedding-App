@@ -1,0 +1,37 @@
+<h2>Manage RSVPs</h2>
+
+<% rsvped, not_rsvped = @guests.partition {|g| g.has_rsvped?} %>
+
+<h3>Haven’t yet RSVP’d</h3>
+<% for guest in not_rsvped %>
+	<div class="row admin-manage-rsvp-box no-rsvp">
+		<div class="col col_1_2"><%= guest.full_name %></div>
+        <div class="col col_1_2 text-right"><span style="font-size: 10px;">[<%= link_to('RSVP for them', edit_guest_path(guest)) %>]</span></div>
+	</div>
+    <div class="divider_thin"></div>
+
+<% end %>
+
+<% coming, not_coming = rsvped.partition {|g| g.is_attending?} %>
+
+<h3>Attending</h3>
+<% for guest in coming %>
+	<div class="row admin-manage-rsvp-box rsvp-attending">
+		<div class="col col_1_2"><%= guest.full_name %></div>
+        <div class="col col_1_2 text-right">    <%= number_attending_content(guest.rsvp) %><span style="font-size: 10px;">[<%= link_to('Update', edit_guest_path(guest)) %>]</span></div>
+	</div>
+    <div class="divider_thin"></div>
+<% end %>
+
+<h3>Not Attending</h3>
+<% for guest in not_coming %>
+	<div class="row admin-manage-rsvp-box rsvp-not-attending">
+		<div class="col col_1_2"><%= guest.full_name %></div>
+        <div class="col col_1_2 text-right"> <%= number_attending_content(guest.rsvp) %><span style="font-size: 10px;">[<%= link_to('Update', edit_guest_path(guest)) %>]</span></div>
+
+  	<% if @admin_user %>
+  		<!--<p class="fancy">This guest was<%= ' NOT' unless guest.rsvp.admin_rsvp? %> registered by an Admin.</p>-->
+  	<% end %>
+	</div>
+    <div class="divider_thin"></div>
+<% end %>

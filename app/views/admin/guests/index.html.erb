@@ -7,20 +7,22 @@
 	</ul>
 	<div class="clear"></div>
 </div>
-
 <% @guests.each do |guest| %>
-	<div class="admin-manage-guest-box">
-		<div class='admin-manage-guest-pin'>
+	<div class="row">
+		<div class="col col_2_3">
+			<h4><%= link_to guest.full_name, admin_guest_path(guest) %></h4>
+	        <ul class="address">
+		      <% if guest.address.present? %>
+		        <%= html_for_address(guest.address) %>
+		      <% else %>
+		        No Address Entered
+		        (<%= link_to 'Enter One', new_admin_guest_address_path(guest) %>)
+		      <% end %>
+		    </ul>
+		</div>
+		<div class='col col_1_3 text-right'>
 			<h4>PIN: <%= guest.pin %></h4>
 		</div>
-		<h3><%= link_to guest.full_name, admin_guest_path(guest) %></h3>
-    	<ul class="address">
-	      <% if guest.address.present? %>
-	        <%= html_for_address(guest.address) %>
-	      <% else %>
-	        No Address Entered
-	        (<%= link_to 'Enter One', new_admin_guest_address_path(guest) %>)
-	      <% end %>
-	    </ul>
 	</div>
+	<div class="divider_thin"></div>
 <% end %>

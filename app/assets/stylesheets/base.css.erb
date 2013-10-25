@@ -541,7 +541,18 @@ p.wp-caption-text, .frame_caption {
     float: left;
     position: relative;
     margin-left: 5px;
-    margin-right: 5px;}
+    margin-right: 5px;
+    vertical-align: top;
+    }
+
+.row:after { 
+    clear: both;
+}
+
+.row:before, .row:after {
+    display: table;
+    content: '';
+}
 
 /* Columns, Full width page, Content: 496px
 -------------------------------------------------- */
@@ -555,6 +566,10 @@ form .row .col_1_2 {width:234px}
     margin-left:0}
 .row .omega, .col.omega {
     margin-right:0}
+
+.text-right {
+    text-align: right;
+}
 
 /*----------------------------------------------*/
 /* Dividers */
