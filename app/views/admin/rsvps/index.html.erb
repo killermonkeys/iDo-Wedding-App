@@ -15,8 +15,8 @@
 <% coming, not_coming = rsvped.partition {|g| g.is_attending?} %>
 
 <h3>Attending ( 
-  Y: <%= coming.sum{|g| ((g.rsvp.attending ? 1 : 0) + (g.rsvp.second_attending ? 1 : 0))} %>, 
-  N: <%= coming.sum{|g| ((g.rsvp.attending ? 0 : 1) + (g.rsvp.second_attending ? 0 : 1))} %> 
+  Y: <%= coming.sum{|g| ((g.rsvp.attending ? 1 : 0) + (g.has_second_guest ? (g.rsvp.second_attending ? 1 : 0) : 0))} %>, 
+  N: <%= coming.sum{|g| ((g.rsvp.attending ? 0 : 1) + (g.has_second_guest ? (g.rsvp.second_attending ? 0 : 1) : 0))} %> 
   )</h3>
 <% for guest in coming %>
 	<div class="row admin-manage-rsvp-box rsvp-attending">
@@ -27,8 +27,8 @@
 <% end %>
 
 <h3>Not Attending ( 
-  Y: <%= not_coming.sum{|g| ((g.rsvp.attending ? 1 : 0) + (g.rsvp.second_attending ? 1 : 0))} %>, 
-  N: <%= not_coming.sum{|g| ((g.rsvp.attending ? 0 : 1) + (g.rsvp.second_attending ? 0 : 1))} %> 
+  Y: <%= not_coming.sum{|g| ((g.rsvp.attending ? 1 : 0) + (g.has_second_guest ? (g.rsvp.second_attending ? 1 : 0) : 0))} %>, 
+  N: <%= not_coming.sum{|g| ((g.rsvp.attending ? 0 : 1) + (g.has_second_guest ? (g.rsvp.second_attending ? 0 : 1) : 0))} %> 
   )</h3>
 <% for guest in not_coming %>
 	<div class="row admin-manage-rsvp-box rsvp-not-attending">

@@ -10,7 +10,7 @@ class Rsvp < ActiveRecord::Base
   with_options :include => :guest, :conditions => { :guests => { :admin => false } } do |scopes|
     scopes.scope :non_admin
     scopes.scope :yes, :conditions => ["attending = ? OR second_attending = ?", true, true]
-    scopes.scope :no,  :conditions => ["attending = ? AND second_attending = ?", false, false]
+    scopes.scope :no,  :conditions => ["attending = ? AND (second_attending = ? OR second_attending IS NULL)", false, false]
     scopes.scope :undecided, :conditions => ["attending IS NULL OR second_attending IS NULL"]
   end
   
