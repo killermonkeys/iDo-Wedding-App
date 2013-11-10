@@ -9,9 +9,9 @@ class Rsvp < ActiveRecord::Base
   
   with_options :include => :guest, :conditions => { :guests => { :admin => false } } do |scopes|
     scopes.scope :non_admin
-    scopes.scope :yes, :conditions => { :attending => true }
-    scopes.scope :no,  :conditions => { :attending => false }
-    scopes.scope :undecided, :conditions => { :attending => nil }
+    scopes.scope :yes, :conditions => ["attending = ? OR second_attending = ?", true, true]
+    scopes.scope :no,  :conditions => ["attending = ? AND second_attending = ?", false, false]
+    scopes.scope :undecided, :conditions => ["attending IS NULL OR second_attending IS NULL"]
   end
   
   ATTENDING_MAP = [[true, 'yes'], [false, 'no']]
@@ -20,10 +20,14 @@ class Rsvp < ActiveRecord::Base
     1 + (rsvp.guest.has_second_guest ? 1 : 0)
   end
 
-  def number_attending?
+  def attending_count?
     (rsvp.attending ? 1 : 0) + (rsvp.second_attending ? 1 : 0)
   end
 
+  def not_attending_count?
+    (rsvp.attending ? 0 : 1) + (rsvp.second_attending ? 0 : 1)
+  end
+  
   def one?
     rsvp.attending ^ rsvp.second_attending
   end

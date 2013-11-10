@@ -90,7 +90,7 @@ class Guest < ActiveRecord::Base
   end
   
   def has_rsvped?
-    rsvp.present? && !rsvp.attending.nil?
+    rsvp.present? && (!rsvp.attending.nil? || !rsvp.second_attending.nil?)
   end
 
   def has_rsvp?
