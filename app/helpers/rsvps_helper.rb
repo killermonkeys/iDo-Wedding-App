@@ -7,6 +7,8 @@ module RsvpsHelper
       html = "Yes, #{rsvp.guest.name} will be attending."
     elsif !rsvp.attending && rsvp.second_attending
       html = "Yes, #{rsvp.guest.g2_name} will be attending."
+    elsif !rsvp.attending && !rsvp.second_attending
+      html = "None attending."
     end
     content_tag(html_tag, html.html_safe, html_options)
   end
