@@ -104,7 +104,7 @@
                 <li class="menu-level-0"><a href="#"><span>RSVP Admin</span></a>
                     <ul class="submenu-1">
                         <li class="menu-level-1"><%= link_to "Manage Guests (#{Guest.non_admin.count})", admin_guests_path %></li>
-                        <li class="menu-level-1"><%= link_to "Manage RSVPs (Y:#{Rsvp.yes.sum{|r| (r.attending ? 1 : 0) + (r.guest.has_second_guest ? (r.second_attending ? 1 : 0) : 0)}}, N:#{Rsvp.no.sum{|r| (r.attending ? 0 : 1) + (r.guest.has_second_guest ? (r.second_attending ? 0 : 1) : 0)}})", admin_rsvps_path %></li>
+                        <li class="menu-level-1"><%= link_to "Manage RSVPs (Y:#{Rsvp.sum{|r| (r.attending ? 1 : 0) + (r.guest.has_second_guest ? (r.second_attending ? 1 : 0) : 0)}}, N:#{Rsvp.sum{|r| (r.attending ? 0 : 1) + (r.guest.has_second_guest ? (r.second_attending ? 0 : 1) : 0)}})", admin_rsvps_path %></li>
                         <li class="menu-level-1"><%= link_to "Manage Gifts (#{Gift.count})", admin_gifts_path %></li>
                   <!-- <li><%#= link_to 'Manage Thank Yous', thank_yous_path %></li> -->
                         <li class="menu-level-1"><%= link_to 'Logout', logout_path %></li>
