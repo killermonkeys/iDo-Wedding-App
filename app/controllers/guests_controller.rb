@@ -23,4 +23,8 @@ class GuestsController < ApplicationController
     end
   end
 
+  def menu
+    # @session_guest
+  end
+
 end

@@ -1,0 +1,223 @@
+<% guest = @guest || @session_guest %>
+<div class="">
+  <div class="row">
+    <div class="col col_1_2">
+      <%= field_set_tag "#{guest.name}'s choices" do %>
+        <div class="row">
+          <%= form.label :g1_dietary_preference, 'Dietary Requirements' %>
+          <%= form.select :g1_dietary_preference, options_for_select(Guest::DIETARY_MAP, selected: form.object.g1_dietary_preference) %>
+        </div>
+        <div class="row radio"><hr />
+        </div>
+        <div id="options_g1_0">
+          <div class="row radio ">
+            <%= form.radio_button :g1_course1, 1 %> <%= form.label :g1_course1_1, "Rabbit raviolo with parmesan veloute, tarragon and pickled mushrooms" %><br /> 
+            <%= form.radio_button :g1_course1, 2 %> <%= form.label :g1_course1_2, "Fillet of stone bass with soft shell crab, black rice, braised bok choy and asian coconut broth" %><br /> 
+            <%= form.radio_button :g1_course1, 3 %> <%= form.label :g1_course1_3, "Smoked salmon terrine with warm potato pancakes, watercress and horseradish" %>
+          </div>
+          <div class="row radio "><hr />
+          </div>
+          <div class="row radio ">
+            <%= form.radio_button :g1_course2, 1 %> <%= form.label :g1_course2_1, "Loin of venison with creamed cabbage, chestnuts, salt baked beetroot and juniper jus" %><br /> 
+            <%= form.radio_button :g1_course2, 2 %> <%= form.label :g1_course2_2, "Pork chop with boudin noir, wild mushrooms, curly kale, celeriac, apple and cider sauce" %><br /> 
+            <%= form.radio_button :g1_course2, 3 %> <%= form.label :g1_course2_3, "Cornish cod with lobster ravioli, samphire, slow cooked leeks and shellfish espuma" %>
+          </div>
+          <div class="row radio "><hr />
+          </div>
+          <div class="row radio ">
+            <%= form.radio_button :g1_course3, 1 %> <%= form.label :g1_course3_1, "Milk chocolate pave with hazelnut sphere and burnt orange ice cream" %><br /> 
+            <%= form.radio_button :g1_course3, 2 %> <%= form.label :g1_course3_2, "Gariguettes strawberry terrine with basil and balsamic sorbet, cheese chantilly and pistachio crumble" %><br /> 
+            <%= form.radio_button :g1_course3, 3 %> <%= form.label :g1_course3_3, "Saffron and cardamom creme brulee with honeycomb and poached plums" %>
+          </div>
+        </div>
+
+        <div id="options_g1_1" style="display: none;">
+          <div class="row radio ">
+            <%= form.radio_button :g1_course1, 4 %> <%= form.label :g1_course1_4, "Duck egg yolk ravioli with wild mushrooms, truffles and tarragon veloute" %>
+          </div>
+          <div class="row radio "><hr />
+          </div>
+          <div class="row radio ">
+            <%= form.radio_button :g1_course2, 4 %> <%= form.label :g1_course2_4, "Baked aubergine with spring onions, black rice, braised bok choy and asian coconut broth" %>
+          </div>
+          <div class="row radio "><hr />
+          </div>
+          <div class="row radio ">
+            <%= form.radio_button :g1_course3, 4 %> <%= form.label :g1_course3_1, "Milk chocolate pave with hazelnut sphere and burnt orange ice cream" %><br /> 
+            <%= form.radio_button :g1_course3, 5 %> <%= form.label :g1_course3_2, "Gariguettes strawberry terrine with basil and balsamic sorbet, cheese chantilly and pistachio crumble" %><br /> 
+            <%= form.radio_button :g1_course3, 6 %> <%= form.label :g1_course3_3, "Saffron and cardamom creme brulee with honeycomb and poached plums" %>
+          </div>
+        </div>
+
+        <div id="options_g1_2" style="display: none;">
+          <div class="row radio ">
+            <%= form.radio_button :g1_course1, 7 %> <%= form.label :g1_course1_2, "Fillet of stone bass with soft shell crab, black rice, braised bok choy and asian coconut broth" %><br /> 
+            <%= form.radio_button :g1_course1, 8 %> <%= form.label :g1_course1_3, "Smoked salmon terrine with potatoes, watercress and horseradish" %>
+          </div>
+          <div class="row radio "><hr />
+          </div>
+          <div class="row radio ">
+            <%= form.radio_button :g1_course2, 7 %> <%= form.label :g1_course2_1, "Loin of venison with creamed cabbage, chestnuts, salt baked beetroot and juniper jus" %><br /> 
+            <%= form.radio_button :g1_course2, 8 %> <%= form.label :g1_course2_2, "Pork chop with wild mushrooms, curly kale, celeriac, apple and cider sauce" %><br /> 
+            <%= form.radio_button :g1_course2, 9 %> <%= form.label :g1_course2_3, "Cornish cod with poached prawns, leeks, fennel and a lobster bisque" %>
+          </div>
+          <div class="row radio "><hr />
+          </div>
+          <div class="row radio ">
+            <%= form.radio_button :g1_course3, 7 %> <%= form.label :g1_course3_1, "Milk chocolate pave with hazelnut sphere and burnt orange ice cream" %><br /> 
+            <%= form.radio_button :g1_course3, 8 %> <%= form.label :g1_course3_2, "Gariguettes strawberry terrine with basil and balsamic sorbet, cheese chantilly" %><br /> 
+            <%= form.radio_button :g1_course3, 9 %> <%= form.label :g1_course3_3, "Saffron and cardamom creme brulee with honeycomb and poached plums" %>
+          </div>
+        </div>
+
+        <div id="options_g1_3" style="display: none;">
+          <div class="row  ">Please <a href="mailto:rsvp@janeandkenny.com">contact us</a> with your dietary requirements.
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+    <% if guest.has_second_guest %>
+      <div class="col col_1_2">
+        <%= field_set_tag "#{guest.g2_name}'s choices" do %>
+          <div class="row">
+            <%= form.label :g2_dietary_preference, 'Dietary Requirements' %>
+            <%= form.select :g2_dietary_preference, options_for_select(Guest::DIETARY_MAP, selected: form.object.g2_dietary_preference) %>
+          </div>
+          <div class="row radio"><hr />
+          </div>
+
+          <div id="options_g2_0">
+            <div class="row radio ">
+              <%= form.radio_button :g2_course1, 1 %> <%= form.label :g2_course1_1, "Rabbit raviolo with parmesan veloute, tarragon and pickled mushrooms" %><br /> 
+              <%= form.radio_button :g2_course1, 2 %> <%= form.label :g2_course1_2, "Fillet of stone bass with soft shell crab, black rice, braised bok choy and asian coconut broth" %><br /> 
+              <%= form.radio_button :g2_course1, 3 %> <%= form.label :g2_course1_3, "Smoked salmon terrine with warm potato pancakes, watercress and horseradish" %>
+            </div>
+            <div class="row radio "><hr />
+            </div>
+            <div class="row radio ">
+              <%= form.radio_button :g2_course2, 1 %> <%= form.label :g2_course2_1, "Loin of venison with creamed cabbage, chestnuts, salt baked beetroot and juniper jus" %><br /> 
+              <%= form.radio_button :g2_course2, 2 %> <%= form.label :g2_course2_2, "Pork chop with boudin noir, wild mushrooms, curly kale, celeriac, apple and cider sauce" %><br /> 
+              <%= form.radio_button :g2_course2, 3 %> <%= form.label :g2_course2_3, "Cornish cod with lobster ravioli, samphire, slow cooked leeks and shellfish espuma" %>
+            </div>
+            <div class="row radio "><hr />
+            </div>
+            <div class="row radio ">
+              <%= form.radio_button :g2_course3, 1 %> <%= form.label :g2_course3_1, "Milk chocolate pave with hazelnut sphere and burnt orange ice cream" %><br /> 
+              <%= form.radio_button :g2_course3, 2 %> <%= form.label :g2_course3_2, "Gariguettes strawberry terrine with basil and balsamic sorbet, cheese chantilly and pistachio crumble" %><br /> 
+              <%= form.radio_button :g2_course3, 3 %> <%= form.label :g2_course3_3, "Saffron and cardamom creme brulee with honeycomb and poached plums" %>
+            </div>
+          </div>
+
+          <div id="options_g2_1" style="display: none;">
+            <div class="row radio ">
+              <%= form.radio_button :g2_course1, 4 %> <%= form.label :g2_course1_4, "Duck egg yolk ravioli with wild mushrooms, truffles and tarragon veloute" %>
+            </div>
+            <div class="row radio "><hr />
+            </div>
+            <div class="row radio ">
+              <%= form.radio_button :g2_course2, 4 %> <%= form.label :g2_course2_4, "Baked aubergine with spring onions, black rice, braised bok choy and asian coconut broth" %>
+            </div>
+            <div class="row radio "><hr />
+            </div>
+            <div class="row radio ">
+              <%= form.radio_button :g2_course3, 4 %> <%= form.label :g2_course3_1, "Milk chocolate pave with hazelnut sphere and burnt orange ice cream" %><br /> 
+              <%= form.radio_button :g2_course3, 5 %> <%= form.label :g2_course3_2, "Gariguettes strawberry terrine with basil and balsamic sorbet, cheese chantilly and pistachio crumble" %><br /> 
+              <%= form.radio_button :g2_course3, 6 %> <%= form.label :g2_course3_3, "Saffron and cardamom creme brulee with honeycomb and poached plums" %>
+            </div>
+          </div>
+
+          <div id="options_g2_2" style="display: none;">
+            <div class="row radio ">
+              <%= form.radio_button :g2_course1, 7 %> <%= form.label :g2_course1_2, "Fillet of stone bass with soft shell crab, black rice, braised bok choy and asian coconut broth" %><br /> 
+              <%= form.radio_button :g2_course1, 8 %> <%= form.label :g2_course1_3, "Smoked salmon terrine with potatoes, watercress and horseradish" %>
+            </div>
+            <div class="row radio "><hr />
+            </div>
+            <div class="row radio ">
+              <%= form.radio_button :g2_course2, 7 %> <%= form.label :g2_course2_1, "Loin of venison with creamed cabbage, chestnuts, salt baked beetroot and juniper jus" %><br /> 
+              <%= form.radio_button :g2_course2, 8 %> <%= form.label :g2_course2_2, "Pork chop with wild mushrooms, curly kale, celeriac, apple and cider sauce" %><br /> 
+              <%= form.radio_button :g2_course2, 9 %> <%= form.label :g2_course2_3, "Cornish cod with poached prawns, leeks, fennel and a lobster bisque" %>
+            </div>
+            <div class="row radio "><hr />
+            </div>
+            <div class="row radio ">
+              <%= form.radio_button :g2_course3, 7 %> <%= form.label :g2_course3_1, "Milk chocolate pave with hazelnut sphere and burnt orange ice cream" %><br /> 
+              <%= form.radio_button :g2_course3, 8 %> <%= form.label :g2_course3_2, "Gariguettes strawberry terrine with basil and balsamic sorbet, cheese chantilly" %><br /> 
+              <%= form.radio_button :g2_course3, 9 %> <%= form.label :g2_course3_3, "Saffron and cardamom creme brulee with honeycomb and poached plums" %>
+            </div>
+          </div>
+
+          <div id="options_g2_3" style="display: none;">
+            <div class="row  ">Please <a href="mailto:rsvp@janeandkenny.com">contact us</a> with your dietary requirements.
+            </div>
+          </div>
+
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <%= form.label :music, "What song would you love to dance to on the night" %>
+    <%= form.text_field :music, :class => "input_full" %>
+  </div>
+</div>
+<script type="text/javascript">
+var showHideOptionsG1 = function () {
+  var selected = $( "select#guest_g1_dietary_preference" ).val();
+  if (selected === '0') {
+    $('#options_g1_0').css('display', 'block');
+    $('#options_g1_1').css('display', 'none');
+    $('#options_g1_2').css('display', 'none');
+    $('#options_g1_3').css('display', 'none');
+  } else if (selected === '1') {
+    $('#options_g1_0').css('display', 'none');
+    $('#options_g1_1').css('display', 'block');
+    $('#options_g1_2').css('display', 'none');
+    $('#options_g1_3').css('display', 'none');
+  } else if (selected === '2') {
+    $('#options_g1_0').css('display', 'none');
+    $('#options_g1_1').css('display', 'none');
+    $('#options_g1_2').css('display', 'block');
+    $('#options_g1_3').css('display', 'none');
+  } else if (selected === '3') {
+    $('#options_g1_0').css('display', 'none');
+    $('#options_g1_1').css('display', 'none');
+    $('#options_g1_2').css('display', 'none');
+    $('#options_g1_3').css('display', 'block');
+  }
+}
+$('select#guest_g1_dietary_preference').change(function() {
+  showHideOptionsG1();
+});
+showHideOptionsG1();
+
+var showHideOptionsG2 = function () {
+  var selected = $( "select#guest_g2_dietary_preference" ).val();
+  if (selected === '0') {
+    $('#options_g2_0').css('display', 'block');
+    $('#options_g2_1').css('display', 'none');
+    $('#options_g2_2').css('display', 'none');
+    $('#options_g2_3').css('display', 'none');
+  } else if (selected === '1') {
+    $('#options_g2_0').css('display', 'none');
+    $('#options_g2_1').css('display', 'block');
+    $('#options_g2_2').css('display', 'none');
+    $('#options_g2_3').css('display', 'none');
+  } else if (selected === '2') {
+    $('#options_g2_0').css('display', 'none');
+    $('#options_g2_1').css('display', 'none');
+    $('#options_g2_2').css('display', 'block');
+    $('#options_g2_3').css('display', 'none');
+  } else if (selected === '3') {
+    $('#options_g2_0').css('display', 'none');
+    $('#options_g2_1').css('display', 'none');
+    $('#options_g2_2').css('display', 'none');
+    $('#options_g2_3').css('display', 'block');
+  }
+}
+$('select#guest_g2_dietary_preference').change(function() {
+  showHideOptionsG2();
+});
+showHideOptionsG2();
+</script>

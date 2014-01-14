@@ -1,6 +1,7 @@
 OldIdo::Application.routes.draw do
   match 'rsvp' => 'sessions#new', :as => :login, :via => :get
   match 'rsvp' => 'sessions#create', :as => :login, :via => :post
+  match 'menuchoices' => 'guests#menu', via: [:get, :post]
   match 'logout' => 'sessions#destroy', :as => :logout
   root to: 'sessions#new'
 

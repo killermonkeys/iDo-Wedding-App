@@ -1,5 +1,7 @@
 class Guest < ActiveRecord::Base
   nilify_blanks :only => [:salutation, :first_name, :suffix, :additional_names, :email]
+  nilify_blanks :only => [:g1_dietary_preference, :g2_dietary_preference, :g1_course1, :g2_course1, :g1_course2, :g2_course2,
+                          :g1_course3, :g2_course3, :music]
   nilify_blanks :only => [:address, :gift, :rsvp]
   
   with_options :dependent => :destroy do |g|
@@ -12,7 +14,13 @@ class Guest < ActiveRecord::Base
   accepts_nested_attributes_for :address, :gift, :rsvp
   
   SALUTATIONS = %w(Dr. Mr. Mrs. Miss Rev. Sir. Pastor Vicar The)
-  
+
+  DIETARY_MAP = [['None',0],
+                 ['Vegetarian (Ovo-Lacto)',1], 
+                 ['Gluten-free',2],
+                 ['Other',3]]
+
+
   attr_protected :admin
   
   # Validating the guest form fields aren't empty.
@@ -87,6 +95,10 @@ class Guest < ActiveRecord::Base
   def safe_email
     return nil if email.nil?
     email.gsub('@', ' [at] ').gsub('.', ' [dot] ')
+  end
+
+  def has_menued?
+    g1_course1? && ((has_second_guest? && g2_course1?) || !has_second_guest)
   end
   
   def has_rsvped?

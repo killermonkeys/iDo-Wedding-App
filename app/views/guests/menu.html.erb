@@ -1,0 +1,12 @@
+<% guest = @guest || @session_guest %>
+
+<!-- <p id="logout"><%= link_to 'Logout', @admin_user ? admin_guest_path(guest) : guest_path, :class => 'button_link' %></p> -->
+
+<h1><%= @admin_user ? "#{guest.first_name || guest.full_name}’s" : 'Your' %> Wedding Breakfast Menu Choices</h1>
+
+<div class="comment-form">
+    <%= form_for guest, :url => @admin_user ? admin_guest_path(guest) : guest_path do |form| %>
+      <%= render :partial => "/guests/menuoptions", :locals=>{:form=>form} %>
+      <p><%= form.submit 'Update', :class => 'form_submit' %></p>
+    <% end %>
+</div>
