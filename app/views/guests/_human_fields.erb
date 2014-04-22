@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="nested-fields">
+    <div class="inline">
+      <%= f.label :salutation, :class=> 'inline' %><br />
+      <%= f.select :salutation, options_from_collection_for_select(Human::SALUTATIONS, :to_s, :to_s, f.object.salutation), {:include_blank => true}, {:style=> 'width:80px'}  %>
+    </div>
+    <div class="inline">
+      <%= f.label :first_name, :class=> 'inline' %><br />
+      <%= f.text_field :first_name, :size => 15, :style=> 'width:110px' %>
+    </div>
+    <div class="inline">
+      <%= f.label :last_name, :class=> 'inline' %><br />
+      <%= f.text_field :last_name, :size => 15, :style=> 'width:110px' %>
+    </div>
+    <div class="inline">
+      <%= f.label :suffix, :class=> 'inline' %><br />
+      <%= f.text_field :suffix, :length => 4, :style => 'width:40px;' %>
+    </div>
+    <div class="inline">
+      <br />
+      <%= link_to_remove_association 'x', f, :class => 'button_link small' %>
+    </div>
+  </div>
+
+
+<!--   <div class="row"> 
+    <%= f.label :salutation %>
+    <%= f.select :salutation, options_from_collection_for_select(Human::SALUTATIONS, :to_s, :to_s, :salutation), :include_blank => true %>
+  </div>
+  <div class="row"> 
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="row"> 
+    <%= f.label :suffix %>
+    <%= f.text_field :suffix, :length => 4, :style => 'width:40px;' %>
+  </div> -->
+</div>

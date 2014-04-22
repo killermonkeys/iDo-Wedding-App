@@ -17,8 +17,7 @@ namespace 'ido' do
     csv_text = File.read(args.filename)
     csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
-      g = Guest.create!(salutation: row[0], first_name: row[1], last_name: row[2], suffix: row[4], has_second_guest: row[3], 
-        g2_salutation: row[15], g2_first_name: row[16], g2_last_name: row[17], g2_suffix: row[18], pin: row[12])
+      g = Guest.create!(salutation: row[0], first_name: row[1], last_name: row[2], suffix: row[4], pin: row[12])
       g.create_address(line_1: row[5], line_2: row[6], line_3: row[7], city: row[8], state: row[9], 
         zip: row[10], country: row[11])
     end

@@ -34,13 +34,11 @@ class Admin::GuestsController < ApplicationController
   def update
     have_admin_guest = @admin_user && params.key?(:id)
     @guest = Guest.find(params[:id]) if have_admin_guest
-    # Just set the new attributes, but don't save them.
-    @guest.attributes = params[:guest]
     # Update the rsvp.admin_rsvp value if the rsvp.attending value has changed.
     @guest.rsvp.admin_rsvp = true if @guest.rsvp && @guest.rsvp.changed.include?('attending')
     
     # Now attempt to save the changes.
-    if @guest.save
+    if @guest.update_attributes(params[:guest])
       flash[:notice] = 'Guest was successfully updated.'
       redirect_to have_admin_guest ? admin_guest_path(@guest) : guest_path
     else

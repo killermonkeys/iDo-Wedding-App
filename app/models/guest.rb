@@ -1,7 +1,6 @@
 class Guest < ActiveRecord::Base
   nilify_blanks :only => [:salutation, :first_name, :suffix, :additional_names, :email]
-  nilify_blanks :only => [:g1_dietary_preference, :g2_dietary_preference, :g1_course1, :g2_course1, :g1_course2, :g2_course2,
-                          :g1_course3, :g2_course3, :music]
+  nilify_blanks :only => [:music]
   nilify_blanks :only => [:address, :gift, :rsvp]
   
   with_options :dependent => :destroy do |g|
@@ -9,11 +8,13 @@ class Guest < ActiveRecord::Base
     g.has_one :gift
     g.has_one :rsvp
   end
-  
+  has_many :humans
+
   # accept attributes for our address, gift, and RSVP via one form
   accepts_nested_attributes_for :address, :gift, :rsvp
-  
-  SALUTATIONS = %w(Dr. Mr. Mrs. Miss Rev. Sir. Pastor Vicar The)
+  accepts_nested_attributes_for :humans ,:reject_if => :all_blank, :allow_destroy => true
+
+  SALUTATIONS = %w(Dr. Mr. Mrs. Ms. Miss Rev. Sir. Pastor Vicar The Honorable)
 
   DIETARY_MAP = [['None',0],
                  ['Vegetarian (Ovo-Lacto)',1], 
@@ -26,7 +27,7 @@ class Guest < ActiveRecord::Base
   # Validating the guest form fields aren't empty.
   validates_presence_of :last_name
   # validates_presence_of :email
-  validates_presence_of :email, :unless => lambda {|guest| guest.admin?}
+  #validates_presence_of :email, :unless => lambda {|guest| guest.admin?}
   validates_associated :address, :rsvp
   
   before_create :generate_pin
@@ -52,10 +53,6 @@ class Guest < ActiveRecord::Base
     [first_name, last_name].compact.join(' ')
   end
 
-  def g2_name
-    [g2_first_name, g2_last_name].compact.join(' ')
-  end
-
   def name=(names)
     first_name, last_name = names.split(' ', 2)
     if last_name.blank?
@@ -65,23 +62,9 @@ class Guest < ActiveRecord::Base
     end
   end
 
-  def g2_full_name()
-    if g2_name.blank?
-      return 'their Guest'
-    else
-      guest_full_name = [g2_salutation, g2_name, g2_suffix].compact.join(' ').strip
-      return guest_full_name
-    end
-  end
-  
   def full_name(guest_only = false)
     guest_full_name = [salutation, name, suffix].compact.join(' ').strip
-    return guest_full_name if guest_only
-    if has_second_guest?
-      return [guest_full_name, g2_full_name].compact.to_sentence(:two_words_connector => ' & ')
-    else
-      return guest_full_name
-    end
+    return guest_full_name
   end
 
   def g1_full_name()
@@ -125,7 +108,7 @@ class Guest < ActiveRecord::Base
   
   # generate a PIN for this guest record
   def generate_pin
-    return if read_attribute(:pin) =~ /^\d{4}$/  # don't do anything if this record already has a 4-digit PIN
+    return if read_attribute(:pin) =~ /^\d+$/  # don't do anything if this record already has a 4-digit PIN
     begin
       pin_value = Array.new(4) { Random.rand(0..9) }.join  # create a random 4-digit number
     end while self.class.pin_exists?(pin_value)

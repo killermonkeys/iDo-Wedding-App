@@ -11,7 +11,9 @@ gem 'simple_form'
 gem 'nilify_blanks'
 gem 'csv_import'
 gem 'dynamic_form'
-
+gem 'cocoon'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -24,8 +26,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

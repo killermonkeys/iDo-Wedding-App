@@ -36,14 +36,14 @@
                 </p>
             <% end %>
         </div>
-
+<!-- 
         <div class="row">
             <div class="label_title">MENU CHOICES</div>
             <p>
               <%= link_to "MAKE MENU CHOICES", @admin_user ? edit_admin_guest_path(guest) : edit_guest_path, :class => 'button_link' %>
             </p>
         </div>
-
+ -->
         <div class="row">
             <%= link_to "Update #{@admin_user ? (guest.first_name || guest.full_name) + '’s' : 'My'} Info", @admin_user ? edit_admin_guest_path(guest) : edit_guest_path, :class => 'button_link' %>
         </div>

@@ -6,7 +6,6 @@
 
 <div class="comment-form">
     <%= form_for guest, :url => @admin_user ? admin_guest_path(guest) : guest_path do |form| %>
-      <%= render :partial => "/guests/menuoptions", :locals=>{:form=>form} %>
       <p><%= form.submit 'Update', :class => 'form_submit' %></p>
     <% end %>
 </div>

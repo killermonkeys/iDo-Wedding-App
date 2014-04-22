@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140112181936) do
+ActiveRecord::Schema.define(:version => 20140325174911) do
 
   create_table "addresses", :force => true do |t|
     t.integer  "guest_id"
@@ -45,20 +45,18 @@ ActiveRecord::Schema.define(:version => 20140112181936) do
     t.boolean  "admin",                 :default => false, :null => false
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
-    t.boolean  "has_second_guest",      :default => false, :null => false
-    t.string   "g2_salutation"
-    t.string   "g2_first_name"
-    t.string   "g2_last_name"
-    t.string   "g2_suffix"
     t.string   "g1_dietary_preference"
     t.string   "g2_dietary_preference"
-    t.string   "g1_course1"
-    t.string   "g2_course1"
-    t.string   "g1_course2"
-    t.string   "g2_course2"
-    t.string   "g1_course3"
-    t.string   "g2_course3"
     t.string   "music"
+  end
+
+  create_table "humans", :force => true do |t|
+    t.string  "salutation"
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "suffix"
+    t.integer "ordinal"
+    t.integer "guest_id"
   end
 
   create_table "rsvps", :force => true do |t|
